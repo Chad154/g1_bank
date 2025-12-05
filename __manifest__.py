@@ -1,23 +1,24 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "g1_bank",
+    'name': "My Bank",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Bank application""",
 
     'description': """
-        Long description of module's purpose
+        The application allows a customer to manage their accounts and perform different types of transactions. 
+        In addition, there is an admin user who has more rights than a regular user, 
+        giving them a higher level of control within the system. 😃️
     """,
 
-    'author': "My Company",
+    'author': "Conectica",
     'website': "https://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Finance',
+    'version': '1.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base'],
