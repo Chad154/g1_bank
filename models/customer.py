@@ -4,19 +4,19 @@ from odoo import models, fields, api
 
 
 class Customer(models.Model):
-     _name = 'g1_bank.customer'
-     _description = 'Customer'
+    _name = 'g1_bank.customer'
+    _description = 'Customer'
 
-     name = fields.Char()
-     firstName = fields.String
-     lastName = fields.String
-     middleInitial = fields.Char
-     Street = fields.String
-     State = fields.String
-     zip = fields.Integer
-     phone = fields.Integer
-     email = fields.String
-     password = fields.String
+    name = fields.Char(string="Nombre completo")
+    first_name = fields.Char(string="Nombre")
+    last_name = fields.Char(string="Apellidos")
+    middle_initial = fields.Char(string="Inicial")
+    street = fields.Char(string="Calle")
+    state = fields.Char(string="Estado")
+    zip = fields.Integer(string="Código Postal")
+    phone = fields.Char(string="Teléfono")
+    email = fields.Char(string="Email")
+    password = fields.Char(string="Contraseña")
      
      
 #     value = fields.Integer()
