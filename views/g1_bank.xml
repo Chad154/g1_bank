@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="g1_bank_action">
+            <field name="name">G1 Bank</field>
+        </record>
+        
+        <menuitem 
+            id="g1_bank_menu" 
+            name="G1 Bank"
+            action="g1_bank_action"
+        />
+    </data>
+</odoo>
