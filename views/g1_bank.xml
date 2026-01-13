@@ -1,13 +1,28 @@
 <odoo>
     <data>
         <record model="ir.actions.act_window" id="g1_bank_action">
-            <field name="name">G1 Bank</field>
+            <field name="name">Banks</field>
+            <field name="res_model">g1.bank</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+        <record model="ir.actions.act_window" id="g1_account_action">
+            <field name="name">Accounts</field>
+            <field name="res_model">g1.account</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+        <record model="ir.actions.act_window" id="g1_movement_action">
+            <field name="name">Movements</field>
+            <field name="res_model">g1.movement</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+        <record model="ir.actions.act_window" id="g1_customer_action">
+            <field name="name">Customers</field>
+            <field name="res_model">g1.customer</field>
+            <field name="view_mode">tree,form</field>
         </record>
-        
-        <menuitem 
-            id="g1_bank_menu" 
-            name="G1 Bank"
-            action="g1_bank_action"
-        />
+        <menuitem id="g1_bank_main_menu" name="G1 Bank"/>      
+        <menuitem id="g1_account_menu" name="Accounts" parent="g1_bank_main_menu" action="g1_account_action"/>       
+        <menuitem id="g1_movement_menu" name="Movements" parent="g1_bank_main_menu" action="g1_movement_action"/>        
+        <menuitem id="g1_customer_menu" name="Customers" parent="g1_bank_main_menu" action="g1_customer_action"/>
     </data>
 </odoo>
