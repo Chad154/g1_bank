@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 
 class Customer(models.Model):
-    _name = 'g1_bank.customer'
+    _name = 'g1.customer'
     _description = 'Customer'
 
     name = fields.Char(string="Nombre completo")
