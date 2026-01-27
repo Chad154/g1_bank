@@ -7,16 +7,15 @@ class Customer(models.Model):
     _name = 'g1.customer'
     _description = 'Customer'
 
-    name = fields.Char(string="Nombre completo")
-    first_name = fields.Char(string="Nombre")
-    last_name = fields.Char(string="Apellidos")
-    middle_initial = fields.Char(string="Inicial")
-    street = fields.Char(string="Calle")
-    state = fields.Char(string="Estado")
-    zip = fields.Integer(string="Código Postal")
-    phone = fields.Char(string="Teléfono")
+    name = fields.Char(string="Name")
+    last_name = fields.Char(string="Last Name")
+    middle_initial = fields.Char(string="Middle Initial")
+    street = fields.Char(string="Street")
+    state = fields.Char(string="State")
+    zip = fields.Integer(string="ZIP")
+    phone = fields.Char(string="Phone")
     email = fields.Char(string="Email")
-    password = fields.Char(string="Contraseña")
+    password = fields.Char(string="Password")
      
      
 #     value = fields.Integer()
