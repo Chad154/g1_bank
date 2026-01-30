@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-from odoo import models, fields
+from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
 class Movement(models.Model):
@@ -17,6 +16,7 @@ class Movement(models.Model):
     
     amount = fields.Float()
     balance = fields.Float()
+    
     description = fields.Selection(
         selection=[
             ('deposit', 'Deposit'),
@@ -25,32 +25,14 @@ class Movement(models.Model):
         required=True 
     )
     
-    
-    from odoo import models, fields, api
-from odoo.exceptions import ValidationError
 
-class Movement(models.Model):
-    _name = 'g1.movement'
-    _description = 'Movement'
+    @api.constrains('amount')
+    def _check_amount(self):
+        for movement in self:
+            if movement.amount < 0:
+                raise ValidationError("The amount must be greater than zero")
+    
 
-    name = fields.Char()
-    
-    timestamp = fields.Date(
-        string='Date',
-        default=fields.Date.context_today,
-        readonly=True
-    )
-    
-    amount = fields.Float()
-    balance = fields.Float()
-    description = fields.Selection(
-        selection=[
-            ('deposit', 'Deposit'),
-            ('payment', 'Payment')
-        ],
-        required=True 
-    )
-    
     def write(self, vals):
         if 'name' in vals:
             raise ValidationError("No puedes editar el Nombre.")
@@ -64,9 +46,7 @@ class Movement(models.Model):
         if 'balance' in vals:
             raise ValidationError("No puedes editar el Balance.")
 
-        # Si no se tocó ninguno de los anteriores, guardamos normalmente
         return super(Movement, self).write(vals)
-        
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)
 #     description = fields.Text()
