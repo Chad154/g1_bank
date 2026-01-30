@@ -1,60 +1,38 @@
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="g1_bank.list">
-      <field name="name">g1_bank list</field>
-      <field name="model">g1_bank.g1_bank</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
--->
+    <data>
+        <record id="g1_account_tree" model="ir.ui.view">
+            <field name="name">g1.account.tree</field>
+            <field name="model">g1.account</field>
+            <field name="arch" type="xml">
+                <tree string="Cuentas">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="account_type"/>
+                    <field name="credit_line"/>
+                    <field name="opening_date"/>
+                    <field name="begin_balance"/>
+                    <field name="balance"/>
+                </tree>
+            </field>
+        </record>
+        <record id="g1_account_search" model="ir.ui.view">
+            <field name="name">g1.account.search</field>
+            <field name="model">g1.account</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Cuentas">
+                    <field name="name"/>
+                    <field name="description"/>
 
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="g1_bank.action_window">
-      <field name="name">g1_bank window</field>
-      <field name="res_model">g1_bank.g1_bank</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
+                    <separator/>
 
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="g1_bank.action_server">
-      <field name="name">g1_bank server</field>
-      <field name="model_id" ref="model_g1_bank_g1_bank"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
+                    <filter string="Cuentas Estándar" name="type_standard" domain="[('account_type', '=', 'standard')]"/>
+                    <filter string="Cuentas de Crédito" name="type_credit" domain="[('account_type', '=', 'credit')]"/>
 
-    <!-- Top menu item -->
-<!--
-    <menuitem name="g1_bank" id="g1_bank.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="g1_bank.menu_1" parent="g1_bank.menu_root"/>
-    <menuitem name="Menu 2" id="g1_bank.menu_2" parent="g1_bank.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="g1_bank.menu_1_list" parent="g1_bank.menu_1"
-              action="g1_bank.action_window"/>
-    <menuitem name="Server to list" id="g1_bank" parent="g1_bank.menu_2"
-              action="g1_bank.action_server"/>
--->
-  </data>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Tipo de Cuenta" name="group_by_type" context="{'group_by': 'account_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
 </odoo>

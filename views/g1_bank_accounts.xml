@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="g1_account_action">
+            <field name="name">Accounts</field>
+            <field name="res_model">g1.account</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+    </data>
+</odoo>
