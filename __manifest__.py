@@ -1,37 +1,26 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "My Bank",
-
-    'summary': """
-        Bank application""",
-
-    'description': """
-        The application allows a customer to manage their accounts and perform different types of transactions. 
-        In addition, there is an admin user who has more rights than a regular user, 
-        giving them a higher level of control within the system. 😃️
-    """,
-
-    'author': "Conectica",
-    'website': "https://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Finance',
-    'version': '1.0',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base'],
-
-    # always loaded
-    'data': [
-        'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
-        'views/g1_bank.xml'
+    "name": "My Bank (Customers WP3)",
+    "summary": "Customers CRUD (WP3) using res.partner extension",
+    "description": """
+Customer CRUD for the bank project (WP3).
+- Customer is implemented by extending res.partner (Odoo 16).
+- Data validations included (email, zip, phone, password, middle initial).
+- Customer users can only see/edit their own profile (record rule).
+""",
+    "author": "Conectica",
+    "website": "https://www.yourcompany.com",
+    "category": "Finance",
+    "version": "16.0.1.0.0",
+    "depends": ["base"],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/security.xml",
+        "views/views.xml",
+        "views/g1_bank.xml",
+        "views/g1_bank_customer.xml",
+        "views/templates.xml",
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    "application": True,
+    "installable": True,
 }

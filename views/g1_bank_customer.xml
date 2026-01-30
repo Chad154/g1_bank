@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+
+        <!-- TREE -->
         <record id="view_g1_customer_tree" model="ir.ui.view">
             <field name="name">g1.customer.tree</field>
-            <field name="model">g1.customer</field>
+            <field name="model">res.partner</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree string="Customers">
                     <field name="name"/>
                     <field name="first_name"/>
                     <field name="last_name"/>
                     <field name="phone"/>
                     <field name="email"/>
+                    <field name="street"/>
+                    <field name="state_id"/>
+                    <field name="zip"/>
                 </tree>
             </field>
         </record>
+
+        <!-- FORM -->
         <record id="view_g1_customer_form" model="ir.ui.view">
             <field name="name">g1.customer.form</field>
-            <field name="model">g1.customer</field>
+            <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <form string="Customer">
                     <sheet>
+
                         <group>
                             <group>
-                                <field name="name"/>
+                                <field name="name" readonly="1"/>
                                 <field name="first_name"/>
                                 <field name="last_name"/>
                                 <field name="middle_initial"/>
                             </group>
-
                             <group>
-                                <field name="street"/>
-                                <field name="state"/>
-                                <field name="zip"/>
+                                <field name="phone"/>
+                                <field name="email"/>
                             </group>
                         </group>
 
                         <group>
                             <group>
-                                <field name="phone"/>
-                                <field name="email"/>
+                                <field name="street"/>
+                                <field name="state_id"/>
+                                <field name="zip"/>
                             </group>
-
                             <group>
-                                <field name="password" password="True"/>
+                                <field name="bank_password" password="True"/>
                             </group>
                         </group>
+
                     </sheet>
                 </form>
             </field>
         </record>
-        <record id="action_g1_customer" model="ir.actions.act_window">
+
+        <!-- ACTION -->
+        <record model="ir.actions.act_window" id="g1_customer_action">
             <field name="name">Customers</field>
-            <field name="res_model">g1.customer</field>
+            <field name="res_model">res.partner</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem id="menu_g1_root" name="G1 Bank"/>
-        <menuitem id="menu_g1_customer"
-                  name="Customers"
-                  parent="menu_g1_root"
-                  action="action_g1_customer"/>
 
     </data>
 </odoo>

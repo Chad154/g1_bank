@@ -4,14 +4,11 @@
             <field name="name">Banks</field>
             <field name="res_model">g1.bank</field>
             <field name="view_mode">tree,form</field>
-        </record>                
-        <record model="ir.actions.act_window" id="g1_customer_action">
-            <field name="name">Customers</field>
-            <field name="res_model">g1.customer</field>
-            <field name="view_mode">tree,form</field>
         </record>
-        <menuitem id="g1_bank_main_menu" name="G1 Bank"/>        
-        <menuitem id="g1_customer_menu" name="Customers" parent="g1_bank_main_menu" action="g1_customer_action"/>           
+
+        <!-- Customers ahora usa res.partner (acción definida en g1_bank_customer.xml) -->
+        <menuitem id="g1_bank_main_menu" name="G1 Bank"/>
+        <menuitem id="g1_customer_menu" name="Customers" parent="g1_bank_main_menu" action="g1_customer_action"/>
 
     </data>
 </odoo>
