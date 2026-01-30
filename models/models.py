@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api
 
 
-# class g1_bank(models.Model):
-#     _name = 'g1_bank.g1_bank'
-#     _description = 'g1_bank.g1_bank'
+class g1_bank(models.Model):
+     _name = 'g1.bank'
+     _description = 'g1.bank'
 
 #     name = fields.Char()
 #     value = fields.Integer()

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "g1_bank",
-
+    'application' : True,
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
         subtitle on modules listing or apps.openerp.com""",
@@ -10,7 +10,7 @@
         Long description of module's purpose
     """,
 
-    'author': "My Company",
+    'author': "Conectica",
     'website': "https://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
@@ -24,9 +24,10 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/g1_bank.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -1,19 +1,41 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="g1_bank.list">
-      <field name="name">g1_bank list</field>
-      <field name="model">g1_bank.g1_bank</field>
+
+    <record model="ir.ui.view" id="g1_movement_tree">
+      <field name="name">g1_movement.tree</field>
+      <field name="model">g1.movement</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="description"/>
+          <field name="amount"/>
+          <field name="balance"/>
+          <field name="timestamp"/>
         </tree>
       </field>
     </record>
--->
+
+    <record model="ir.ui.view" id="g1_movement_search">
+      <field name="name">g1_movement.search</field>
+      <field name="model">g1.movement</field>
+      <field name="arch" type="xml">
+        <search string="Search Movements">
+          <field name="name"/>
+          <field name="description"/>
+
+          <separator/>
+
+          <filter string="Deposits" name="deposit_filter" domain="[('description', '=', 'deposit')]"/>
+          
+          <filter string="Payments" name="payment_filter" domain="[('description', '=', 'payment')]"/>
+
+          <group expand="0" string="Group By">
+              <filter string="Type" name="group_by_type" context="{'group_by': 'description'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
 <!--
