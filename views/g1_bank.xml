@@ -2,7 +2,7 @@
     <data>
         <record model="ir.actions.act_window" id="g1_bank_action">
             <field name="name">Banks</field>
-            <field name="res_model">g1.bank</field>
+            <field name="res_model">res.partner</field>
             <field name="view_mode">tree,form</field>
         </record>
 

@@ -15,10 +15,9 @@ Customer CRUD for the bank project (WP3).
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
-        "security/security.xml",
-        "views/views.xml",
-        "views/g1_bank.xml",
         "views/g1_bank_customer.xml",
+        "views/g1_bank.xml",
+        "views/views.xml",
         "views/templates.xml",
     ],
     "application": True,

@@ -2,25 +2,26 @@
 <odoo>
     <data>
 
-        <!-- TREE -->
+        <!-- ================= TREE ================= -->
         <record id="view_g1_customer_tree" model="ir.ui.view">
             <field name="name">g1.customer.tree</field>
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <tree string="Customers">
-                    <field name="name"/>
                     <field name="first_name"/>
                     <field name="last_name"/>
+                    <field name="middle_initial"/>
                     <field name="phone"/>
                     <field name="email"/>
                     <field name="street"/>
+                    <field name="city"/>
                     <field name="state_id"/>
                     <field name="zip"/>
                 </tree>
             </field>
         </record>
 
-        <!-- FORM -->
+        <!-- ================= FORM ================= -->
         <record id="view_g1_customer_form" model="ir.ui.view">
             <field name="name">g1.customer.form</field>
             <field name="model">res.partner</field>
@@ -30,7 +31,6 @@
 
                         <group>
                             <group>
-                                <field name="name" readonly="1"/>
                                 <field name="first_name"/>
                                 <field name="last_name"/>
                                 <field name="middle_initial"/>
@@ -38,17 +38,20 @@
                             <group>
                                 <field name="phone"/>
                                 <field name="email"/>
+                                <field name="bank_password" password="True"/>
                             </group>
                         </group>
 
                         <group>
                             <group>
                                 <field name="street"/>
+                                <field name="city"/>
+
+                                <!-- NECESARIO para state_id -->
+                                <field name="country_id" invisible="1"/>
+
                                 <field name="state_id"/>
                                 <field name="zip"/>
-                            </group>
-                            <group>
-                                <field name="bank_password" password="True"/>
                             </group>
                         </group>
 
@@ -57,11 +60,19 @@
             </field>
         </record>
 
-        <!-- ACTION -->
-        <record model="ir.actions.act_window" id="g1_customer_action">
+        <!-- ================= ACTION ================= -->
+        <record id="g1_customer_action" model="ir.actions.act_window">
             <field name="name">Customers</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">tree,form</field>
+
+            <field name="view_id" ref="view_g1_customer_tree"/>
+
+            <field name="view_ids" eval="[
+                (5, 0, 0),
+                (0, 0, {'sequence': 1, 'view_mode': 'tree', 'view_id': ref('view_g1_customer_tree')}),
+                (0, 0, {'sequence': 2, 'view_mode': 'form', 'view_id': ref('view_g1_customer_form')})
+            ]"/>
         </record>
 
     </data>
