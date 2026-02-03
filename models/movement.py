@@ -35,18 +35,19 @@ class Movement(models.Model):
 
     def write(self, vals):
         if 'name' in vals:
-            raise ValidationError("No puedes editar el Nombre.")
+            raise ValidationError("You cannot change the name.")
 
         if 'amount' in vals:
-            raise ValidationError("No puedes editar el Monto.")
+            raise ValidationError("You cannot change the amount.")
 
         if 'description' in vals:
-            raise ValidationError("No puedes editar la Descripción.")
+            raise ValidationError("You cannot change the description.")
 
         if 'balance' in vals:
-            raise ValidationError("No puedes editar el Balance.")
+            raise ValidationError("You cannot change the balance.")
 
         return super(Movement, self).write(vals)
+    
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)
 #     description = fields.Text()
