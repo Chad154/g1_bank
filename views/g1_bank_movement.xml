@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="g1_movement_action">
+            <field name="name">Movements</field>
+            <field name="res_model">g1.movement</field>
+            <field name="view_mode">tree,form</field>
+        </record>  
+        
+    </data>
+</odoo>
