@@ -2,20 +2,17 @@
     <data>
         <record model="ir.actions.act_window" id="g1_bank_action">
             <field name="name">g1.bank</field>
-            <field name="res_model">g1.bank</field> 
+            <field name="res_model">g1.bank</field>
             <field name="view_mode">tree,form</field>
-        </record>
-        
-        <record model="ir.actions.act_window" id="g1_account_action">
-            <field name="name">Accounts</field>
-            <field name="res_model">g1.account</field> 
+        </record>        
+        <record model="ir.actions.act_window" id="g1_movement_action">
+            <field name="name">Movements</field>
+            <field name="res_model">g1.movement</field>
             <field name="view_mode">tree,form</field>
-        </record>
-        
-        <menuitem id="g1_bank_main_menu" name="G1 Bank"/>
-        
-        <menuitem id="g1_bank_menu" name="Banks" parent="g1_bank_main_menu" action="g1_bank_action"/>
-        
-        <menuitem id="g1_account_menu" name="Accounts" parent="g1_bank_main_menu" action="g1_account_action"/>
+        </record>        
+
+        <menuitem id="g1_bank_main_menu" name="G1 Bank"/>        
+        <menuitem id="g1_movement_menu" name="Movements" parent="g1_bank_main_menu" action="g1_movement_action"/>        
+
     </data>
 </odoo>

@@ -1,0 +1,82 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="g1_movement_tree">
+      <field name="name">g1_movement.tree</field>
+      <field name="model">g1.movement</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="description"/>
+          <field name="amount"/>
+          <field name="balance"/>
+          <field name="timestamp"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="g1_movement_search">
+      <field name="name">g1_movement.search</field>
+      <field name="model">g1.movement</field>
+      <field name="arch" type="xml">
+        <search string="Search Movements">
+          <field name="name"/>
+          <field name="description"/>
+
+          <separator/>
+
+          <filter string="Deposits" name="deposit_filter" domain="[('description', '=', 'deposit')]"/>
+          
+          <filter string="Payments" name="payment_filter" domain="[('description', '=', 'payment')]"/>
+
+          <group expand="0" string="Group By">
+              <filter string="Type" name="group_by_type" context="{'group_by': 'description'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="g1_bank.action_window">
+      <field name="name">g1_bank window</field>
+      <field name="res_model">g1_bank.g1_bank</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="g1_bank.action_server">
+      <field name="name">g1_bank server</field>
+      <field name="model_id" ref="model_g1_bank_g1_bank"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="g1_bank" id="g1_bank.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="g1_bank.menu_1" parent="g1_bank.menu_root"/>
+    <menuitem name="Menu 2" id="g1_bank.menu_2" parent="g1_bank.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="g1_bank.menu_1_list" parent="g1_bank.menu_1"
+              action="g1_bank.action_window"/>
+    <menuitem name="Server to list" id="g1_bank" parent="g1_bank.menu_2"
+              action="g1_bank.action_server"/>
+-->
+  </data>
+</odoo>
