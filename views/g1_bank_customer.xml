@@ -3,55 +3,39 @@
     <data>
 
         <!-- ================= TREE ================= -->
-        <record id="view_g1_customer_tree" model="ir.ui.view">
-            <field name="name">g1.customer.tree</field>
-            <field name="model">res.partner</field>
+        <record id="view_users_customer_tree" model="ir.ui.view">
+            <field name="name">res.users.customer.tree</field>
+            <field name="model">res.users</field>
             <field name="arch" type="xml">
                 <tree string="Customers">
-                    <field name="first_name"/>
-                    <field name="last_name"/>
-                    <field name="middle_initial"/>
-                    <field name="phone"/>
+                    <field name="id" string="Customer ID"/>
+                    <field name="name" string="First Name"/>
+                    <field name="login"/>
                     <field name="email"/>
-                    <field name="street"/>
-                    <field name="city"/>
-                    <field name="state_id"/>
-                    <field name="zip"/>
+                    <field name="active"/>
                 </tree>
             </field>
         </record>
 
         <!-- ================= FORM ================= -->
-        <record id="view_g1_customer_form" model="ir.ui.view">
-            <field name="name">g1.customer.form</field>
-            <field name="model">res.partner</field>
+        <record id="view_users_customer_form" model="ir.ui.view">
+            <field name="name">res.users.customer.form</field>
+            <field name="model">res.users</field>
             <field name="arch" type="xml">
                 <form string="Customer">
                     <sheet>
 
                         <group>
                             <group>
-                                <field name="first_name"/>
-                                <field name="last_name"/>
-                                <field name="middle_initial"/>
-                            </group>
-                            <group>
-                                <field name="phone"/>
+                                <field name="id" string="Customer ID" readonly="1"/>
+                                <field name="name" string="First Name"/>
+                                <field name="login"/>
                                 <field name="email"/>
-                                <field name="bank_password" password="True"/>
                             </group>
-                        </group>
 
-                        <group>
                             <group>
-                                <field name="street"/>
-                                <field name="city"/>
-
-                                <!-- NECESARIO para state_id -->
-                                <field name="country_id" invisible="1"/>
-
-                                <field name="state_id"/>
-                                <field name="zip"/>
+                                <!-- Odoo puede gestionar password de varias formas según versión/config -->
+                                <field name="active"/>
                             </group>
                         </group>
 
@@ -60,19 +44,21 @@
             </field>
         </record>
 
-        <!-- ================= ACTION ================= -->
-        <record id="g1_customer_action" model="ir.actions.act_window">
+        <!-- ================= ACTION (forzar vistas) ================= -->
+        <record id="action_users_customers" model="ir.actions.act_window">
             <field name="name">Customers</field>
-            <field name="res_model">res.partner</field>
+            <field name="res_model">res.users</field>
             <field name="view_mode">tree,form</field>
 
-            <field name="view_id" ref="view_g1_customer_tree"/>
+            <!-- Vista principal -->
+            <field name="view_id" ref="view_users_customer_tree"/>
 
+            <!-- Forzar tree+form -->
             <field name="view_ids" eval="[
-                (5, 0, 0),
-                (0, 0, {'sequence': 1, 'view_mode': 'tree', 'view_id': ref('view_g1_customer_tree')}),
-                (0, 0, {'sequence': 2, 'view_mode': 'form', 'view_id': ref('view_g1_customer_form')})
-            ]"/>
+        (5, 0, 0),
+        (0, 0, {'sequence': 1, 'view_mode': 'tree', 'view_id': ref('view_users_customer_tree')}),
+        (0, 0, {'sequence': 2, 'view_mode': 'form', 'view_id': ref('view_users_customer_form')})
+      ]"/>
         </record>
 
     </data>

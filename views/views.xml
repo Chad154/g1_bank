@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
+  <data>
 
-        <menuitem id="menu_g1_bank_root"
-                  name="G1 Bank"
-                  sequence="10"/>
+    <menuitem id="menu_g1_bank_root"
+              name="G1 Bank"
+              sequence="10"/>
 
-        <menuitem id="menu_g1_customers"
-                  name="Customers"
-                  parent="menu_g1_bank_root"
-                  action="g1_customer_action"
-                  sequence="10"/>
+    <menuitem id="menu_g1_customers"
+              name="Customers"
+              parent="menu_g1_bank_root"
+              action="action_users_customers"
+              sequence="10"/>
 
-    </data>
+  </data>
 </odoo>
