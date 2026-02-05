@@ -23,11 +23,14 @@ class g1_Account(models.Model):
     begin_balance = fields.Float(string="Balance Inicial")
     
     
-    @api.constrains('begin_balance')
-    def _check_amount(self):
+    @api.constrains('begin_balance', 'credit_line')
+    def _check_positive_amounts(self):
         for account in self:
             if account.begin_balance < 0:
-                raise ValidationError("The balance must be greater than zero")
+                raise ValidationError("The initial balance must be greater than or equal to zero.")
+            if account.credit_line < 0:
+                raise ValidationError("The line of credit cannot be negative.")
+    
             
     @api.constrains('account_type', 'credit_line')
     def _check_credit_line(self):
@@ -35,6 +38,13 @@ class g1_Account(models.Model):
             if account.account_type == 'standard' and account.credit_line > 0:
                 raise ValidationError("Standard accounts cannot have a credit line")
                 
+    @api.model
+    def create(self, vals):
+        # Si ponen un balance inicial, el balance actual debe arrancar igual
+        if 'begin_balance' in vals:
+            vals['balance'] = vals['begin_balance']
+        return super(g1_Account, self).create(vals)
+    
     
     def write(self, vals):
         if 'name' in vals:
