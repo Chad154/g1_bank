@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ================= TREE ================= -->
+        <record id="view_users_customer_tree" model="ir.ui.view">
+            <field name="name">res.users.customer.tree</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <tree string="Customers">
+                    <field name="id" string="Customer ID"/>
+                    <field name="name" string="First Name"/>
+                    <field name="login"/>
+                    <field name="email"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ================= FORM ================= -->
+        <record id="view_users_customer_form" model="ir.ui.view">
+            <field name="name">res.users.customer.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form string="Customer">
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="id" string="Customer ID" readonly="1"/>
+                                <field name="name" string="First Name"/>
+                                <field name="login"/>
+                                <field name="email"/>
+                            </group>
+
+                            <group>
+                                <!-- Odoo puede gestionar password de varias formas según versión/config -->
+                                <field name="active"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ================= ACTION (forzar vistas) ================= -->
+        <record id="action_users_customers" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="res_model">res.users</field>
+            <field name="view_mode">tree,form</field>
+
+            <!-- Vista principal -->
+            <field name="view_id" ref="view_users_customer_tree"/>
+
+            <!-- Forzar tree+form -->
+            <field name="view_ids" eval="[
+        (5, 0, 0),
+        (0, 0, {'sequence': 1, 'view_mode': 'tree', 'view_id': ref('view_users_customer_tree')}),
+        (0, 0, {'sequence': 2, 'view_mode': 'form', 'view_id': ref('view_users_customer_form')})
+      ]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,3 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <menuitem id="menu_g1_bank_root"
+              name="G1 Bank"
+              sequence="10"/>
+
+    <menuitem id="menu_g1_customers"
+              name="Customers"
+              parent="menu_g1_bank_root"
+              action="action_users_customers"
+              sequence="10"/>
+
+  </data>
+</odoo>
 <odoo>
   <data>
     <!-- explicit list view definition -->
