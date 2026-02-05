@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_g1_bank_g1_bank,g1_bank.g1_bank,model_g1_bank_g1_bank,base.group_user,1,1,1,1
+access_g1_account,g1.account,model_g1_account,,1,1,1,1
