@@ -1,24 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "My Bank (Customers WP3)",
-    "summary": "Customers CRUD (WP3) using res.partner extension",
-    "description": """
-Customer CRUD for the bank project (WP3).
-- Customer is implemented by extending res.partner (Odoo 16).
-- Data validations included (email, zip, phone, password, middle initial).
-- Customer users can only see/edit their own profile (record rule).
-""",
-    "author": "Conectica",
-    "website": "https://www.yourcompany.com",
-    "category": "Finance",
+    "name": "My Bank (G1 Bank)",
     "version": "16.0.1.0.0",
+    "category": "Finance",
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
-        "views/g1_bank_customer.xml",
-        "views/g1_bank.xml",
-        "views/views.xml",
-        "views/templates.xml",
+        "views/views.xml", 
     ],
     "application": True,
     "installable": True,
