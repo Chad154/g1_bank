@@ -60,7 +60,8 @@ class Movement(models.Model):
         account.sudo().write({'balance': new_balance})
         
         return super(Movement, self).create(vals)
-	#FIXME: Añade la anotación api.model y verifica que no permite hacer UPDATE de estos campos que controlas.
+
+	#FIXME: Verifica que no permite hacer UPDATE de estos campos que controlas.
     def write(self, vals):
         # Bloqueamos cualquier edición de movimientos ya creados
         if any(f in vals for f in ['name', 'amount', 'description', 'balance', 'account_id']):
