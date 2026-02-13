@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--FIXME: Definir vista de formulario para el modelo que tienes asignado-->
 <odoo>
     <data>
         <menuitem id="menu_g1_bank_root" name="G1 Bank" sequence="10"/>

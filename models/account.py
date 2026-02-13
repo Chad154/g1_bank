@@ -5,9 +5,11 @@ from odoo.exceptions import ValidationError
 class g1_Account(models.Model):
     _name = 'g1.account'
     _description = 'Bank Account'
-
+	#FIXME Este campo pasa a tener como etiqueta "Descripción"
+	#FIXME Su propósito no será almacenar el ID porque ya existe el campo id heredado de models.Model
     name = fields.Char(string="Número de Cuenta", required=True)
-    description = fields.Text(string="Descripción")
+    #FIXME Eliminar este campo del modelo y de las vistas
+	description = fields.Text(string="Descripción")
     account_type = fields.Selection(
         selection=[
             ('standard', 'Estándar'),
@@ -23,7 +25,11 @@ class g1_Account(models.Model):
     
     # Relacion, cuenta tiene muchos movimientos
     movement_ids = fields.One2many('g1.movement', 'account_id', string="Movimientos")
-
+	#FIXME añade campo relacional con res.users y asocia la cuenta con el usuario que está creando la cuenta cuando
+	#esta última se cree
+	
+	#FIXME añade validación para no admitir credit_line negativo
+	
     @api.model
     def create(self, vals):
         # Al crear la cuenta, inicializamos el balance con el begin_balance
@@ -42,7 +48,8 @@ class g1_Account(models.Model):
         for account in self:
             if account.account_type == 'standard' and account.credit_line > 0:
                 raise ValidationError("Standard accounts cannot have a credit line")
-
+	#FIXME Añade la anotación api.model y verifica que se ejecutan los controles que tienes 
+	#en este método cuando se intenta modificar una cuenta
     def write(self, vals):
         if 'name' in vals:
             raise ValidationError("You cannot change the name.")
