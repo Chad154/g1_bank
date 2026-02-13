@@ -2,6 +2,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
+#FIXME redefine el método unlink para permitir borrar solo el último registro de Movement
 class Movement(models.Model):
     _name = 'g1.movement'
     _description = 'Movement'
@@ -32,7 +33,7 @@ class Movement(models.Model):
         for movement in self:
             if movement.amount <= 0:
                 raise ValidationError("The amount must be greater than zero")
-
+	#FIXME: Verifica que se actualiza el saldo de la cuenta al guardar el movimiento.
     @api.model
     def create(self, vals):
         # Usar la cuenta relacionada
@@ -59,7 +60,7 @@ class Movement(models.Model):
         account.sudo().write({'balance': new_balance})
         
         return super(Movement, self).create(vals)
-
+	#FIXME: Añade la anotación api.model y verifica que no permite hacer UPDATE de estos campos que controlas.
     def write(self, vals):
         # Bloqueamos cualquier edición de movimientos ya creados
         if any(f in vals for f in ['name', 'amount', 'description', 'balance', 'account_id']):
