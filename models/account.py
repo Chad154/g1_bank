@@ -48,7 +48,8 @@ class g1_Account(models.Model):
         for account in self:
             if account.account_type == 'standard' and account.credit_line > 0:
                 raise ValidationError("Standard accounts cannot have a credit line")
-	#FIXME Añade la anotación api.model y verifica que se ejecutan los controles que tienes 
+
+    #FIXME Verifica que se ejecutan los controles que tienes 
 	#en este método cuando se intenta modificar una cuenta
     def write(self, vals):
         if 'name' in vals:
