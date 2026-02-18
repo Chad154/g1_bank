@@ -21,12 +21,13 @@ class g1_Account(models.Model):
     opening_date = fields.Date(string="Fecha de Apertura", default=fields.Date.context_today, readonly=True)
     begin_balance = fields.Float(string="Balance Inicial")
     
-    # Relacion, cuenta tiene muchos movimientos
+    # Campo para controlar el deshacer
+    can_undo_movement = fields.Boolean(string="Puede deshacer", default=False)
+    
     movement_ids = fields.One2many('g1.movement', 'account_id', string="Movimientos")
 
     @api.model
     def create(self, vals):
-        # Al crear la cuenta, inicializamos el balance con el begin_balance
         if 'begin_balance' in vals:
             vals['balance'] = vals['begin_balance']
         return super(g1_Account, self).create(vals)
@@ -43,17 +44,30 @@ class g1_Account(models.Model):
             if account.account_type == 'standard' and account.credit_line > 0:
                 raise ValidationError("Standard accounts cannot have a credit line")
 
-    def write(self, vals):
-        if 'name' in vals:
-            raise ValidationError("You cannot change the name.")
-        if 'begin_balance' in vals:
-            raise ValidationError("You cannot change the initial balance.")
-        if 'account_type' in vals:
-            raise ValidationError("You cannot change the account type.")
-        
-        if 'credit_line' in vals:
-            for record in self:
-                if record.account_type == 'standard':
-                    raise ValidationError("You cannot change the credit line in a standard account")
+    def action_unlink_last_movement(self):
+        for account in self:
+            # Si el boton esta apagado, no deja borrar
+            if not account.can_undo_movement:
+                raise ValidationError("You can only undo the last movement")
 
-        return super(g1_Account, self).write(vals)
+            last_move = self.env['g1.movement'].search([
+                ('account_id', '=', account.id)
+            ], order='id desc', limit=1)
+
+            if not last_move:
+                account.can_undo_movement = False
+                raise ValidationError("There is no movement to undo.")
+
+            # Revertimos el balance
+            if last_move.description == 'deposit':
+                new_balance = account.balance - last_move.amount
+            else:
+                new_balance = account.balance + last_move.amount
+
+            # Actualizamos cuenta, apagamos el boton y borramos
+            account.sudo().write({
+                'balance': new_balance,
+                'can_undo_movement': False  # Bloqueamos el siguiente intento
+            })
+            last_move.unlink()
+        return True

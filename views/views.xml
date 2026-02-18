@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--FIXME: Definir vista de formulario para el modelo que tienes asignado-->
 <odoo>
     <data>
         <menuitem id="menu_g1_bank_root" name="G1 Bank" sequence="10"/>
@@ -22,35 +21,76 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_g1_accounts" 
-                  name="Accounts" 
-                  parent="menu_g1_bank_root" 
-                  action="action_g1_account" 
-                  sequence="20"/>
-
-        <menuitem id="menu_g1_movements" 
-                  name="Movements" 
-                  parent="menu_g1_bank_root" 
-                  action="action_g1_movement" 
-                  sequence="30"/>
-        
-           <menuitem id="menu_g1_customers"
-                  name="Customers"
-                  parent="menu_g1_bank_root"
-                  action="action_g1_customer"
-                  sequence="15"/>
+        <menuitem id="menu_g1_accounts" name="Accounts" parent="menu_g1_bank_root" action="action_g1_account" sequence="20"/>
+        <menuitem id="menu_g1_movements" name="Movements" parent="menu_g1_bank_root" action="action_g1_movement" sequence="30"/>
+        <menuitem id="menu_g1_customers" name="Customers" parent="menu_g1_bank_root" action="action_g1_customer" sequence="15"/>
 
         <record id="g1_movement_tree" model="ir.ui.view">
             <field name="name">g1.movement.tree</field>
             <field name="model">g1.movement</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree delete="0">
                     <field name="name"/>
                     <field name="description"/>
                     <field name="amount"/>
                     <field name="balance"/>
                     <field name="timestamp"/>
                 </tree>
+            </field>
+        </record>
+        <!--Filtro de depositos y pagos para la vista de movements-->
+        <record id="view_g1_movement_search" model="ir.ui.view">
+            <field name="name">g1.movement.search</field>
+            <field name="model">g1.movement</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter string="Deposit" name="deposits" domain="[('description', '=', 'deposit')]"/>
+                    <filter string="Payment" name="payments" domain="[('description', '=', 'payment')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="g1_account_view_form" model="ir.ui.view">
+            <field name="name">g1.account.form</field>
+            <field name="model">g1.account</field>
+            <field name="arch" type="xml">
+                <form string="Bank Account">
+                    <header>
+                        <button name="action_unlink_last_movement" 
+                                string="Undo Last Movement" 
+                                type="object" 
+                                class="oe_highlight"
+                                attrs="{'invisible': [('can_undo_movement', '=', False)]}"
+                                confirm="Are you sure you want to delete the last created movement?"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="account_type"/>
+                                <field name="can_undo_movement" invisible="1"/> 
+                            </group>
+                            <group>
+                                <field name="begin_balance"/>
+                                <field name="balance"/>
+                                <field name="credit_line" attrs="{'invisible': [('account_type', '=', 'standard')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Movements">
+                                <field name="movement_ids">
+                                    <tree delete="0">
+                                        <field name="timestamp"/>
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                        <field name="amount"/>
+                                        <field name="balance" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
             </field>
         </record>
 
@@ -62,14 +102,11 @@
                     <field name="name"/>
                     <field name="description"/>
                     <field name="account_type"/>
-                    <field name="begin_balance"/>
-                    <field name="credit_line"/>
-                    <field name="opening_date"/>
                     <field name="balance"/>
                 </tree>
             </field>
         </record>
-        
+
         <record id="g1_customer_tree" model="ir.ui.view">
             <field name="name">g1.customer.tree</field>
             <field name="model">res.users</field>
@@ -77,10 +114,9 @@
                 <tree>
                     <field name="name"/>
                     <field name="login"/>
-                    <field name="email"/>
                 </tree>
             </field>
         </record>
-
     </data>
 </odoo>
+
