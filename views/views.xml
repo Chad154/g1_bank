@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--FIXME: Definir vista de formulario para el modelo que tienes asignado-->
+<!--MEJORA :He añadido un campo de busqueda search-->
 <odoo>
     <data>
         <menuitem id="menu_g1_bank_root" name="G1 Bank" sequence="10"/>
@@ -59,16 +60,66 @@
             <field name="model">g1.account</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
+                    <field name="id"
+                                    string="id"
+                                    readonly="1"
+                                    attrs="{'invisible': [('id', '=', False)]}"/>
                     <field name="description"/>
+                    <field name="customer_id"/>
                     <field name="account_type"/>
-                    <field name="begin_balance"/>
+                    <field name="begin_balance" attrs="{'readonly': [('id', '!=', False)]}"/>
                     <field name="credit_line"/>
                     <field name="opening_date"/>
                     <field name="balance"/>
                 </tree>
             </field>
         </record>
+        
+        <record id="g1_account_form" model="ir.ui.view">
+            <field name="name">g1.account.form</field>
+            <field name="model">g1.account</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="description"/>
+                        <field name="customer_id"/>
+                        <field name="account_type"/>
+                        <field name="begin_balance"/>
+                        <field name="credit_line" 
+                               attrs="{'invisible': [('account_type', '=', 'standard')]}"/>
+                        <field name="opening_date"/>
+                        <field name="balance"/>
+                    </group>
+                    <notebook>
+                        <page string="Movimientos">
+                            <field name="movement_ids"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        
+        <record id="g1_account_search" model="ir.ui.view">
+            <field name="name">g1.account.search</field>
+            <field name="model">g1.account</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Cuentas">
+                    <field name="description"/>
+
+                    <separator/>
+
+                    <filter string="Cuentas Estándar" name="standard_accounts" domain="[('account_type', '=', 'standard')]"/>
+                    <filter string="Cuentas de Crédito" name="credit_accounts" domain="[('account_type', '=', 'credit')]"/>
+
+                    <separator/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Tipo de Cuenta" name="group_by_type" context="{'group_by': 'account_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
         
         <record id="g1_customer_tree" model="ir.ui.view">
             <field name="name">g1.customer.tree</field>
